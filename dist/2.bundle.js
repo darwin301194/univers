@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 385:
+/***/ 300:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15,6 +15,12 @@ webpackJsonp([2],{
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(178);
+
+	var _redux = __webpack_require__(185);
+
+	var _actions = __webpack_require__(292);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23,30 +29,49 @@ webpackJsonp([2],{
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var About = function (_React$Component) {
-	  _inherits(About, _React$Component);
+	var People = function (_React$Component) {
+	  _inherits(People, _React$Component);
 
-	  function About() {
-	    _classCallCheck(this, About);
+	  function People() {
+	    _classCallCheck(this, People);
 
-	    return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (People.__proto__ || Object.getPrototypeOf(People)).apply(this, arguments));
 	  }
 
-	  _createClass(About, [{
+	  _createClass(People, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.actions.loadPeopleIfNeeded();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'p',
-	        null,
-	        'About'
+	        'div',
+	        { className: 'people' },
+	        'Luke Skywalker'
 	      );
 	    }
 	  }]);
 
-	  return About;
+	  return People;
 	}(_react2.default.Component);
 
-	exports.default = About;
+	People.need = [_actions.loadPeople];
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    people: state.people
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    actions: (0, _redux.bindActionCreators)({ loadPeopleIfNeeded: _actions.loadPeopleIfNeeded }, dispatch)
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(People);
 
 /***/ }
 

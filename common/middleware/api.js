@@ -1,22 +1,6 @@
-import { arrayOf, normalize } from 'normalizr'
 import request from 'axios'
-import Schemas from './schemas'
 
 const API_ROOT = 'http://swapi.co/api/'
-
-// Warning! This function mutates the object!
-const camelizeKeys = json => {
-  Object.keys(json).forEach(key => {
-    var newKey = key.replace(/^[_.\- ]+/, '')
-                  .toLowerCase()
-                  .replace(/[_.\- ]+(\w|$)/g, (m, p1) => p1.toUpperCase())
-
-    if (key !== newKey) {
-      json[newKey] = json[key]
-      delete json[key]
-    }
-  })
-}
 
 export const CALL_API = Symbol('Call API')
 
@@ -37,6 +21,14 @@ export const fetchMenu = () =>
       statusText: err.response.statusText
     }))
 
+const callApi = (endpoint, schema) => {
+  const fullUrl = (endpoint.indexOf(API_ROOT) === -1 ? API_ROOT + endpoint : endpoint)
+
+  return request.get(fullUrl)
+    .then(response => Promise.resolve(response))
+    .catch(err => Promise.reject(err))
+}
+
 export default store => next => action => {
   const callAPI = action[CALL_API]
 
@@ -45,7 +37,7 @@ export default store => next => action => {
   }
 
   let { endpoint } = callAPI
-  const { schema, types } = callAPI
+  const { types } = callAPI
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())
@@ -55,10 +47,6 @@ export default store => next => action => {
     throw new Error('Specify a string endpoint URL')
   }
 
-  if (!schema) {
-    throw new Error('Specify one of the exported Schemas.')
-  }
-
   if (!Array.isArray(types) || types.length !== 3) {
     throw new Error('Expected an array of three action types.')
   }
@@ -66,4 +54,27 @@ export default store => next => action => {
   if (!types.every(type => typeof type === 'string')) {
     throw new Error('Expected action types to be strings.')
   }
+
+  const actionWith = data => {
+    const finalAction = Object.assign({}, action, data)
+    delete finalAction[CALL_API]
+    return finalAction
+  }
+
+  const [requestType, successType, failureType] = types
+  next(actionWith({ type: requestType }))
+
+  return callApi(endpoint)
+    .then(
+      response =>
+        next(actionWith({
+          type: successType,
+          response: response.data
+        })),
+      err =>
+        next(actionWith({
+          type: failureType,
+          error: err || 'Something bad happened'
+        }))
+    )
 }

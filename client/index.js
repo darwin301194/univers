@@ -12,7 +12,6 @@ const preloadedState = window.__PRELOADED_STATE__
 
 // remove the script
 // document.getElementById('preloaded-state').remove()
-
 const store = configureStore(preloadedState)
 
 match({ history, routes }, (err, redirectLocation, renderProps) => {
