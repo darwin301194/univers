@@ -20,12 +20,19 @@ app.use(Express.static(path.join(__dirname, '../dist')))
 const createPage = (html, finalState) => {
   let preloadedState = finalState ? JSON.stringify(finalState).replace(/</g, '\\x3c') : undefined;
 
+  /**
+   * The styles.css must be include to handle FOUC
+   *
+   * Warn: Duplicate style!
+   * Need figure it out how to handle this
+   */
   return `
     <!doctype>
     <html>
       <head>
         <title>Example</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel="stylesheet" href="styles.css">
       </head>
       <body>
         <div id="app">${html}</div>

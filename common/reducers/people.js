@@ -1,6 +1,6 @@
 import { PEOPLE_REQUEST, PEOPLE_SUCCESS, PEOPLE_FAILURE } from '../actions'
 
-const people = (state = [], action) => {
+const people = (state = {}, action) => {
   switch (action.type) {
     case PEOPLE_REQUEST:
       return state

@@ -14,5 +14,6 @@ const fetchPeople = () => ({
 export const loadPeople = () => dispatch =>
   dispatch(fetchPeople())
 
-export const loadPeopleIfNeeded = () => (dispatch, getState) =>
-  getState().people ? dispatch(fetchPeople()) : void(0)
+export const loadPeopleIfNeeded = () => (dispatch, getState) => {
+  Object.keys(getState().people).length ? void(0) : dispatch(fetchPeople())
+}
