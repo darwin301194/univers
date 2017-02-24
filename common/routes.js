@@ -14,6 +14,7 @@ import Layout from './containers/Layout';
  */
 const routes = (
   <Route path="/" component={Layout}>
+
     <IndexRoute getComponent={(location, cb) => {
       if (!__CLIENT__) {
         cb(null, require('./containers/Home').default)
@@ -23,6 +24,7 @@ const routes = (
         })
       }
     }}/>
+
     <Route path="people" getComponent={(location, cb) => {
       if (!__CLIENT__) {
         cb(null, require('./containers/PeopleContainer').default)
@@ -31,6 +33,7 @@ const routes = (
         cb(null, require('./containers/PeopleContainer').default)
       })
     }}/>
+
     <Route path="*" getComponent={(location, cb) => {
       if (!__CLIENT__) {
         cb(null, require('./containers/NotFoundPage').default)
@@ -40,6 +43,7 @@ const routes = (
         })
       }
     }}/>
+
   </Route>
 );
 

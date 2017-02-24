@@ -5,6 +5,6 @@ export default (dispatch, components, params) => {
       .concat(acc)
   }, [])
 
-  const promises = needs.map(need => dispatch(need()))
+  const promises = needs.map(need => dispatch(need(params)))
   return Promise.all(promises)
 }

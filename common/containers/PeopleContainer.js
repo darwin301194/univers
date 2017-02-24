@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { loadPeople, loadPeopleIfNeeded } from '../actions'
-import PeopleList from '../components/PeopleComponent/PeopleList'
+import { fetchPeople, fetchPeopleIfNeeded } from '../actions'
+import PeopleList from '../components/People/PeopleList'
 import Pagination from '../components/Pagination'
 
 class PeopleContainer extends React.Component {
   componentDidMount() {
-    this.props.actions.loadPeopleIfNeeded()
+    this.props.actions.fetchPeopleIfNeeded()
   }
 
   render() {
@@ -25,7 +25,7 @@ class PeopleContainer extends React.Component {
 }
 
 PeopleContainer.need = [
-  loadPeople
+  fetchPeople
 ]
 
 const mapStateToProps = state => ({
@@ -33,7 +33,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ loadPeopleIfNeeded }, dispatch)
+  actions: bindActionCreators({ fetchPeopleIfNeeded }, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PeopleContainer)
