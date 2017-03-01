@@ -23,6 +23,7 @@ export const fetchMenu = () =>
 
 const callApi = (endpoint, schema) => {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1 ? API_ROOT + endpoint : endpoint)
+  console.info(fullUrl)
 
   return request.get(fullUrl)
     .then(response => Promise.resolve(response))
@@ -37,7 +38,7 @@ export default store => next => action => {
   }
 
   let { endpoint } = callAPI
-  const { types } = callAPI
+  const { types, page } = callAPI
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())
@@ -69,11 +70,13 @@ export default store => next => action => {
       response =>
         next(actionWith({
           type: successType,
+          page: page,
           response: response.data
         })),
       err =>
         next(actionWith({
           type: failureType,
+          page: page,
           error: err || 'Something bad happened'
         }))
     )

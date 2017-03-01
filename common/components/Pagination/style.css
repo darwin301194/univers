@@ -1,0 +1,12 @@
+.paginationList {
+  list-style: none;
+}
+
+.paginationItem {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.linkActive {
+  color: grey;
+}

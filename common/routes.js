@@ -4,7 +4,8 @@ if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 
-import Layout from './containers/Layout';
+import Layout from './containers/Layout'
+import { fetchPeoples, selectedPeoplesPage } from './actions'
 
 /**
  * @todo: Refactor
@@ -15,7 +16,7 @@ import Layout from './containers/Layout';
 const routes = (
   <Route path="/" component={Layout}>
 
-    <IndexRoute getComponent={(location, cb) => {
+    <IndexRoute getComponent={(nextState, cb) => {
       if (!__CLIENT__) {
         cb(null, require('./containers/Home').default)
       } else {
@@ -25,16 +26,21 @@ const routes = (
       }
     }}/>
 
-    <Route path="people" getComponent={(location, cb) => {
+    <Route path="people" getComponent={(nextState, cb) => {
       if (!__CLIENT__) {
-        cb(null, require('./containers/PeopleContainer').default)
+        let PeopleContainer = require('./containers/People').default
+        PeopleContainer.need = [
+          fetchPeoples.bind(null, nextState.location.query.page),
+          selectedPeoplesPage.bind(null, nextState.location.query.page)
+        ]
+        cb(null, PeopleContainer)
       }
       require.ensure([], require => {
-        cb(null, require('./containers/PeopleContainer').default)
+        cb(null, require('./containers/People').default)
       })
     }}/>
 
-    <Route path="*" getComponent={(location, cb) => {
+    <Route path="*" getComponent={(nextState, cb) => {
       if (!__CLIENT__) {
         cb(null, require('./containers/NotFoundPage').default)
       } else {
@@ -45,6 +51,6 @@ const routes = (
     }}/>
 
   </Route>
-);
+)
 
 export default routes

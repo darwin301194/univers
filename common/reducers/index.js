@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
 import menu from './menu'
-import people from './people'
+import { peoplesByPage, selectedPeoplesPage } from './peoples'
 
 const rootReducer = combineReducers({
   menu,
-  people
+  peoplesByPage,
+  selectedPeoplesPage
 })
 
 export default rootReducer

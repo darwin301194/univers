@@ -18,7 +18,7 @@ const port = 8080
 app.use(Express.static(path.join(__dirname, '../dist')))
 
 const createPage = (html, finalState) => {
-  let preloadedState = finalState ? JSON.stringify(finalState).replace(/</g, '\\x3c') : undefined;
+  let preloadedState = finalState ? JSON.stringify(finalState).replace(/</g, '\\x3c') : undefined
 
   /**
    * The styles.css must be include to handle FOUC
@@ -48,12 +48,12 @@ const createPage = (html, finalState) => {
 const handleRender = (req, res) => {
   match({ routes, location: req.originalUrl }, (err, redirectLocation, renderProps) => {
     if (err) {
-      console.error(err);
-      return res.status(500).end('Internal server error');
+      console.error(err)
+      return res.status(500).end('Internal server error')
     }
 
     if (!renderProps)
-      return res.status(404).end('Not found');
+      return res.status(404).end('Not found')
 
     if (redirectLocation)
       return res.redirect(302, redirectLocation.pathname + redirectLocation.search)
