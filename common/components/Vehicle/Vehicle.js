@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import style from '../Common/style.css'
 
-const PeopleDescription = ({ description }) => (
+const VehicleDescription = ({ description }) => (
   <div className={style.mb20}>
     {Object.entries(description).map(value =>
       <div
@@ -18,7 +18,7 @@ const PeopleDescription = ({ description }) => (
   </div>
 )
 
-const PeopleInfo = ({ info }) => (
+const VehicleInfo = ({ info }) => (
   <div>
     {Object.entries(info).map(value =>
       <div
@@ -38,33 +38,35 @@ const PeopleInfo = ({ info }) => (
   </div>
 )
 
-const People = ({ people }) => (
+const Vehicle = ({ vehicle }) => (
   <li className={style.thingItem}>
     <div className={style.thingContent}>
-      <div className={style.mb20}>{people.name}</div>
-      <PeopleDescription
+      <div className={style.mb20}>{vehicle.name}</div>
+      <VehicleDescription
         description={{
-          height: people.height,
-          mass: people.mass,
-          hair_color: people.hair_color,
-          skin_color: people.skin_color,
-          eye_color: people.eye_color,
-          birth_year: people.birth_year,
-          gender: people.gender
+          model: vehicle.model,
+          manufacturer: vehicle.manufacturer,
+          cost_in_credits: vehicle.cost_in_credits,
+          length: vehicle.length,
+          max_atmosphering_speed: vehicle.max_atmosphering_speed,
+          crew: vehicle.crew,
+          passengers: vehicle.passengers,
+          population: vehicle.population,
+          cargo_capacity: vehicle.cargo_capacity,
+          consumables: vehicle.consumables,
+          vehicle_class: vehicle.vehicle_class
         }} />
-      <PeopleInfo
+      <VehicleInfo
         info={{
-          films: people.films,
-          species: people.species,
-          vehicles: people.vehicles,
-          starships: people.startships
+          pilots: vehicle.pilots,
+          films: vehicle.films
         }} />
     </div>
   </li>
 )
 
-People.propTypes = {
-  people: PropTypes.object.isRequired
+Vehicle.propTypes = {
+  vehicle: PropTypes.object.isRequired
 }
 
-export default People
+export default Vehicle

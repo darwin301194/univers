@@ -24,7 +24,7 @@
   clear: both;
 }
 
-.peopleList {
+.thingList {
   padding-right: 30px;
   list-style: none;
   -webkit-column-count: auto;
@@ -38,14 +38,14 @@
             column-gap: 20px;
 }
 
-  .peopleItem {
+  .thingItem {
     padding-bottom: 20px;
     -webkit-column-break-inside: avoid;
               page-break-inside: avoid;
                    break-inside: avoid;
   }
 
-    .peopleContent {
+    .thingContent {
       padding: 20px;
       text-align: center;
       border-style: solid;

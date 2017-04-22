@@ -1,0 +1,8 @@
+export default {
+  PEOPLE: 'PEOPLE',
+  PLANET: 'PLANET',
+  FILM: 'FILM',
+  SPECIES: 'SPECIES',
+  VEHICLE: 'VEHICLE',
+  STARSHIP: 'STARSHIP'
+}

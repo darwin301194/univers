@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import style from '../Common/style.css'
 
-const PeopleDescription = ({ description }) => (
+const FilmDescription = ({ description }) => (
   <div className={style.mb20}>
     {Object.entries(description).map(value =>
       <div
@@ -18,7 +18,7 @@ const PeopleDescription = ({ description }) => (
   </div>
 )
 
-const PeopleInfo = ({ info }) => (
+const FilmInfo = ({ info }) => (
   <div>
     {Object.entries(info).map(value =>
       <div
@@ -38,33 +38,32 @@ const PeopleInfo = ({ info }) => (
   </div>
 )
 
-const People = ({ people }) => (
+const Film = ({ film }) => (
   <li className={style.thingItem}>
     <div className={style.thingContent}>
-      <div className={style.mb20}>{people.name}</div>
-      <PeopleDescription
+      <div className={style.mb20}>{film.title}</div>
+      <FilmDescription
         description={{
-          height: people.height,
-          mass: people.mass,
-          hair_color: people.hair_color,
-          skin_color: people.skin_color,
-          eye_color: people.eye_color,
-          birth_year: people.birth_year,
-          gender: people.gender
+          episode_id: film.episode_id,
+          opening_crawl: film.opening_crawl,
+          director: film.director,
+          producer: film.producer,
+          release_date: film.release_date
         }} />
-      <PeopleInfo
+      <FilmInfo
         info={{
-          films: people.films,
-          species: people.species,
-          vehicles: people.vehicles,
-          starships: people.startships
+          characters: film.characters,
+          planets: film.planets,
+          starships: film.starships,
+          vehicles: film.vehicles,
+          species: film.species
         }} />
     </div>
   </li>
 )
 
-People.propTypes = {
-  people: PropTypes.object.isRequired
+Film.propTypes = {
+  film: PropTypes.object.isRequired
 }
 
-export default People
+export default Film

@@ -7,6 +7,9 @@ import style from './style.css'
 
 const Pagination = ({ page, pathname, totalCount }) => {
   const maxPagination = Math.ceil(totalCount / 10)
+
+  if (maxPagination <= 1) return null
+
   let pagination = []
   for (let i = 1; i <= maxPagination; i++) {
     if (page === i) {

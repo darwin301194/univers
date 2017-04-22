@@ -2,20 +2,19 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { fetchPeoplesIfNeeded, selectedPeoplesPage } from '../actions'
+import { fetchSpeciesIfNeeded, selectedSpeciesPage } from '../actions'
 import NotFoundPage from './NotFoundPage'
-import constants from '../constants'
-import PeopleList from '../components/People/PeopleList'
+import SpeciesList from '../components/Species/SpeciesList'
 import Pagination from '../components/Pagination'
 
-class People extends React.Component {
+class Species extends React.Component {
   componentDidMount() {
-    this.props.actions.fetchPeoplesIfNeeded(this.props.location.query.page, constants.PEOPLE)
+    this.props.actions.fetchSpeciesIfNeeded(this.props.location.query.page)
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.location.query.page !== nextProps.location.query.page) {
-      this.props.actions.fetchPeoplesIfNeeded(nextProps.location.query.page, constants.PEOPLE)
+      this.props.actions.fetchSpeciesIfNeeded(nextProps.location.query.page)
     }
   }
 
@@ -24,9 +23,8 @@ class People extends React.Component {
       page,
       error,
       isFetching,
-      didInvalidate,
       totalCount,
-      peoples,
+      species,
       location: {
         pathname
       }
@@ -41,41 +39,41 @@ class People extends React.Component {
           totalCount={totalCount}
           pathname={pathname}
           page={parseInt(page, 10)} />
-        <PeopleList peoples={peoples} />
+        <SpeciesList species={species} />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { selectedPeoplesPage, peoplesByPage } = state
+  const { selectedSpeciesPage, speciesByPage } = state
 
-  const page = selectedPeoplesPage
-  const peoplePage = peoplesByPage[page]
+  const page = selectedSpeciesPage
+  const speciesPage = speciesByPage[page]
 
-  if (!peoplePage) {
+  if (!speciesPage) {
     return {
       page,
       error: null,
       isFetching: true,
       didInvalidate: false,
       totalCount: 0,
-      peoples: []
+      species: []
     }
   }
 
   return {
     page,
-    error: peoplePage.error,
-    isFetching: peoplePage.isFetching,
-    didInvalidate: peoplePage.didInvalidate,
-    totalCount: peoplePage.totalCount,
-    peoples: peoplePage.peoples
+    error: speciesPage.error,
+    isFetching: speciesPage.isFetching,
+    didInvalidate: speciesPage.didInvalidate,
+    totalCount: speciesPage.totalCount,
+    species: speciesPage.species
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ fetchPeoplesIfNeeded, selectedPeoplesPage }, dispatch)
+  actions: bindActionCreators({ fetchSpeciesIfNeeded, selectedSpeciesPage }, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(People)
+export default connect(mapStateToProps, mapDispatchToProps)(Species)

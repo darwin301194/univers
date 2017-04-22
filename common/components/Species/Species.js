@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import style from '../Common/style.css'
 
-const PeopleDescription = ({ description }) => (
+const SpeciesDescription = ({ description }) => (
   <div className={style.mb20}>
     {Object.entries(description).map(value =>
       <div
@@ -18,7 +18,7 @@ const PeopleDescription = ({ description }) => (
   </div>
 )
 
-const PeopleInfo = ({ info }) => (
+const SpeciesInfo = ({ info }) => (
   <div>
     {Object.entries(info).map(value =>
       <div
@@ -38,33 +38,33 @@ const PeopleInfo = ({ info }) => (
   </div>
 )
 
-const People = ({ people }) => (
+const Species = ({ species }) => (
   <li className={style.thingItem}>
     <div className={style.thingContent}>
-      <div className={style.mb20}>{people.name}</div>
-      <PeopleDescription
+      <div className={style.mb20}>{species.name}</div>
+      <SpeciesDescription
         description={{
-          height: people.height,
-          mass: people.mass,
-          hair_color: people.hair_color,
-          skin_color: people.skin_color,
-          eye_color: people.eye_color,
-          birth_year: people.birth_year,
-          gender: people.gender
+          classification: species.classification,
+          designation: species.designation,
+          average_height: species.average_height,
+          skin_colors: species.skin_colors,
+          hair_colors: species.hair_colors,
+          eye_colors: species.eye_colors,
+          average_lifespan: species.average_lifespan,
+          homeworld: species.homeworld,
+          language: species.language
         }} />
-      <PeopleInfo
+      <SpeciesInfo
         info={{
-          films: people.films,
-          species: people.species,
-          vehicles: people.vehicles,
-          starships: people.startships
+          people: species.people,
+          films: species.films
         }} />
     </div>
   </li>
 )
 
-People.propTypes = {
-  people: PropTypes.object.isRequired
+Species.propTypes = {
+  species: PropTypes.object.isRequired
 }
 
-export default People
+export default Species

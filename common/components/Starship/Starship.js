@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import style from '../Common/style.css'
 
-const PeopleDescription = ({ description }) => (
+const StarshipDescription = ({ description }) => (
   <div className={style.mb20}>
     {Object.entries(description).map(value =>
       <div
@@ -18,7 +18,7 @@ const PeopleDescription = ({ description }) => (
   </div>
 )
 
-const PeopleInfo = ({ info }) => (
+const StarshipInfo = ({ info }) => (
   <div>
     {Object.entries(info).map(value =>
       <div
@@ -38,33 +38,36 @@ const PeopleInfo = ({ info }) => (
   </div>
 )
 
-const People = ({ people }) => (
+const Starship = ({ starship }) => (
   <li className={style.thingItem}>
     <div className={style.thingContent}>
-      <div className={style.mb20}>{people.name}</div>
-      <PeopleDescription
+      <div className={style.mb20}>{starship.name}</div>
+      <StarshipDescription
         description={{
-          height: people.height,
-          mass: people.mass,
-          hair_color: people.hair_color,
-          skin_color: people.skin_color,
-          eye_color: people.eye_color,
-          birth_year: people.birth_year,
-          gender: people.gender
+          model: starship.model,
+          manufacturer: starship.manufacturer,
+          cost_in_credits: starship.cost_in_credits,
+          length: starship.length,
+          max_atmosphering_speed: starship.max_atmosphering_speed,
+          crew: starship.crew,
+          passengers: starship.passengers,
+          cargo_capacity: starship.cargo_capacity,
+          consumables: starship.consumables,
+          hyperdrive_rating: starship.hyperdrive_rating,
+          MGLT: starship.MGLT,
+          starship_class: starship.starship_class
         }} />
-      <PeopleInfo
+      <StarshipInfo
         info={{
-          films: people.films,
-          species: people.species,
-          vehicles: people.vehicles,
-          starships: people.startships
+          pilots: starship.pilots,
+          films: starship.films
         }} />
     </div>
   </li>
 )
 
-People.propTypes = {
-  people: PropTypes.object.isRequired
+Starship.propTypes = {
+  starship: PropTypes.object.isRequired
 }
 
-export default People
+export default Starship
